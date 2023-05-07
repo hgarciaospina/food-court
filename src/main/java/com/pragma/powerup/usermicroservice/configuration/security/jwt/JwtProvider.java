@@ -45,7 +45,7 @@ public class JwtProvider {
                 .compact();
     }
 
-    public String getNombreUsuarioFromToken(String token) {
+    public String getUserNameFromToken(String token) {
         return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody().getSubject();
     }
 
@@ -73,12 +73,10 @@ public class JwtProvider {
         } catch (ExpiredJwtException e) {
             JWT jwt = JWTParser.parse(jwtResponseDto.getToken());
             JWTClaimsSet claims = jwt.getJWTClaimsSet();
-            String nombreUsuario = claims.getSubject();
+            String userName = claims.getSubject();
             List<String> roles = claims.getStringListClaim("roles");
-            //List<String> roles = (List<String>) claims.getClaim("roles");
-
             return Jwts.builder()
-                    .setSubject(nombreUsuario)
+                    .setSubject(userName)
                     .claim("roles", roles)
                     .setIssuedAt(new Date())
                     .setExpiration(new Date(new Date().getTime() + expiration))
@@ -87,5 +85,4 @@ public class JwtProvider {
         }
         return null;
     }
-
 }
