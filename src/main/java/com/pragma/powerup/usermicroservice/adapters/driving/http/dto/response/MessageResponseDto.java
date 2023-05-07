@@ -1,19 +1,14 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class MessageResponseDto {
-
-    String mensaje;
-
-    public MessageResponseDto(String mensaje) {
-        this.mensaje = mensaje;
-    }
-
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
-
+    String message;
 }

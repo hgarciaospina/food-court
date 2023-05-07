@@ -16,7 +16,7 @@ public class UserRequestDto {
     private Long dniNumber;
     private LocalDate birthdate;
     private String phone;
-    private String mail;
+    private String email;
     private String password;
     private Long idRole;
 }

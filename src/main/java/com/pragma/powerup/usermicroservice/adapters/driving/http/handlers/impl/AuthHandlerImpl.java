@@ -24,14 +24,13 @@ public class AuthHandlerImpl implements IAuthHandler {
     @Override
     public JwtResponseDto login(LoginRequestDto loginRequestDto) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(), loginRequestDto.getPassword())
-        );
+                new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(), loginRequestDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtProvider.generateToken(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String jwt = jwtProvider.generateToken(authentication);
+
         return new JwtResponseDto(jwt);
     }
-
     @Override
     public JwtResponseDto refresh(JwtResponseDto jwtResponseDto) throws ParseException {
         String token = jwtProvider.refreshToken(jwtResponseDto);
