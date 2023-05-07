@@ -13,14 +13,16 @@ import java.util.Collections;
 public class PrincipalUser implements UserDetails {
     private final String email;
     private final String role;
+    private final String password;
 
-    public PrincipalUser(String email, String role) {
+    public PrincipalUser(String email, String role, String password) {
         this.email = email;
         this.role = role;
+        this.password = password;
     }
 
-    public static PrincipalUser build(UserEntity user, String role) {
-        return new PrincipalUser(user.getEmail(), role);
+    public static PrincipalUser build(UserEntity user, String role, String password) {
+        return new PrincipalUser(user.getEmail(), role, user.getPassword());
     }
 
     @Override
@@ -34,7 +36,7 @@ public class PrincipalUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
