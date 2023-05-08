@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response;
 
+import com.pragma.powerup.usermicroservice.domain.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,5 +15,5 @@ public class UserResponseDto {
     private LocalDate birthdate;
     private String phone;
     private String email;
-    private Long idRole;
+    private Role role;
 }

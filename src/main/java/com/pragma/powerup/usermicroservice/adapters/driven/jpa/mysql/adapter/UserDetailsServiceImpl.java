@@ -10,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
@@ -18,9 +21,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity userDb = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
-        RoleEntity role = userDb.getRole();
-        return PrincipalUser.build(userDb, role.getName(), userDb.getPassword());
+
+        List<RoleEntity> roles = new ArrayList<>();
+        roles.add(userDb.getRole());
+
+
+        return PrincipalUser.build(userDb,  roles);
     }
-
-
 }

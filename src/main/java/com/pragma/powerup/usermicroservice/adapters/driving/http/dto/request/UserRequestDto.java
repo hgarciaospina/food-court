@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request;
 
+import com.pragma.powerup.usermicroservice.domain.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,6 @@ public class UserRequestDto {
     private String phone;
     private String email;
     private String password;
+    private Role role;
     private Long idRole;
 }
