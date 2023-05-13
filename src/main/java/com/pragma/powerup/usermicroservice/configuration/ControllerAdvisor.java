@@ -94,4 +94,10 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ROLE_NOT_FOUND_MESSAGE));
     }
+    @ExceptionHandler(InvalidAgeException.class)
+    public ResponseEntity<Map<String, String>> handleRoleNotFoundException(
+            InvalidAgeException invalidAgeException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_AGE_MESSAGE));
+    }
 }
