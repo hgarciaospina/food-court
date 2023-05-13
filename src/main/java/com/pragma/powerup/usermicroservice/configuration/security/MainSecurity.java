@@ -48,6 +48,7 @@ public class MainSecurity {
                 .authorizeRequests(requests -> requests
                         .requestMatchers("/auth/login", "/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/health", "/user/").permitAll()
                         //.requestMatchers("/user").hasRole("ADMIN")
+                        .requestMatchers("/user/*").hasAnyAuthority("ADMIN,OWNER")
                         .anyRequest().authenticated()
                 )
                 .formLogin().disable()

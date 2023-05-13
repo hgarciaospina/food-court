@@ -7,11 +7,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +24,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user/")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "jwt")
 public class UserRestController {
     private final IUserHandler personHandler;
 
+    @Secured({"ADMIN", "OWNER"})
     @Operation(summary = "Add a new user",
             responses = {
                 @ApiResponse(responseCode = "201", description = "Person created",
@@ -33,8 +36,7 @@ public class UserRestController {
                 @ApiResponse(responseCode = "409", description = "Person already exists",
                         content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping
-    public ResponseEntity<Map<String, String>> savePerson(@RequestBody UserRequestDto userRequestDto) {
-        //errors.hasErrors()
+    public ResponseEntity<Map<String, String>> savePerson(@Valid @RequestBody UserRequestDto userRequestDto) {
         personHandler.saveUser(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
