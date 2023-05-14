@@ -1,4 +1,4 @@
-package com.pragma.powerup.usermicroservice.domain.validations;
+package com.pragma.powerup.usermicroservice.domain.exceptions;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -24,4 +24,5 @@ public class UserValidation {
     public static boolean idRolValid(Long idRol) {
         return (idRol >=1 && idRol <=5);
     }
+    public static boolean lengthValidPhoneNumber(String phone) { return phone.length() <= 13; }
 }

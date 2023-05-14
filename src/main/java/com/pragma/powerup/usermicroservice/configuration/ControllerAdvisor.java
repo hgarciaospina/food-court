@@ -64,6 +64,13 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PHONE_ALREADY_EXISTS_MESSAGE));
     }
+
+    @ExceptionHandler(PhoneLengthInvalidException.class)
+    public ResponseEntity<Map<String, String>> handlePhoneLengthInvalidException(
+            PhoneLengthInvalidException phoneLengthInvalidException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PHONE_LENGTH_INVALID_MESSAGE));
+    }
     @ExceptionHandler(PersonNotFoundException.class)
     public ResponseEntity<Map<String, String>> handlePersonNotFoundException(
             PersonNotFoundException personNotFoundException) {

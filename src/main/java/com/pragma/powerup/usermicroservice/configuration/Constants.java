@@ -20,6 +20,7 @@ public class Constants {
     public static final String DNI_ALREADY_EXISTS_MESSAGE = "A person already exists with the DNI number provided";
     public static final String MAIL_ALREADY_EXISTS_MESSAGE = "A person with that mail already exists";
     public static final String PHONE_ALREADY_EXISTS_MESSAGE = "A person with that phone already exists";
+    public static final String PHONE_LENGTH_INVALID_MESSAGE = "The phone number must have a maximum of 13 characters";
     public static final String INVALID_AGE_MESSAGE = "The owner must be of legal age";
     public static final String INVALID_DATE_FORMAT_MESSAGE = "The date must be entered in yyyy-mm-dd format";
     public static final String PERSON_NOT_FOUND_MESSAGE = "No person found with the id provided";
