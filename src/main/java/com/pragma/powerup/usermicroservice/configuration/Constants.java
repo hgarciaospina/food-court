@@ -21,9 +21,11 @@ public class Constants {
     public static final String MAIL_ALREADY_EXISTS_MESSAGE = "A person with that mail already exists";
     public static final String PHONE_ALREADY_EXISTS_MESSAGE = "A person with that phone already exists";
     public static final String INVALID_AGE_MESSAGE = "The owner must be of legal age";
+    public static final String INVALID_DATE_FORMAT_MESSAGE = "The date must be entered in yyyy-mm-dd format";
     public static final String PERSON_NOT_FOUND_MESSAGE = "No person found with the id provided";
     public static final String ROLE_NOT_FOUND_MESSAGE = "No role found with the id provided";
     public static final String ROLE_NOT_ALLOWED_MESSAGE = "No permission granted to create users with this role";
+    public static final String ID_ROLE_INVALID_MESSAGE = "The idRole must be between 1 and 4";
     public static final String USER_ALREADY_EXISTS_MESSAGE = "A user already exists with the role provided";
     public static final String USER_NOT_FOUND_MESSAGE = "No user found with the role provided";
     public static final String SWAGGER_TITLE_MESSAGE = "User API Pragma Power Up";

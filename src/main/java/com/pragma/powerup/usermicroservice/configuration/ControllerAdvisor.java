@@ -76,6 +76,13 @@ public class ControllerAdvisor {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ROLE_NOT_ALLOWED_MESSAGE));
     }
+
+    @ExceptionHandler(IdRolInvalidException.class)
+    public ResponseEntity<Map<String, String>> handleIdRoleInvalidException(
+            RoleNotAllowedForCreationException idRolInvalidException) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, ID_ROLE_INVALID_MESSAGE));
+    }
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<Map<String, String>> handleUserAlreadyExistsException(
             UserAlreadyExistsException userAlreadyExistsException) {
@@ -99,5 +106,11 @@ public class ControllerAdvisor {
             InvalidAgeException invalidAgeException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_AGE_MESSAGE));
+    }
+    @ExceptionHandler(InvalidDateFormatException.class)
+    public ResponseEntity<Map<String, String>> handleRoleNotFoundException(
+            InvalidDateFormatException invalidDateFormatException) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_DATE_FORMAT_MESSAGE));
     }
 }

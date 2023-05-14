@@ -1,5 +1,6 @@
 package com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pragma.powerup.usermicroservice.domain.model.Role;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,9 @@ public class UserRequestDto {
     @NotNull(message = "Identification number is required")
     private Long dniNumber;
 
+    @NotNull(message = "birthdate is required")
+    @NotEmpty(message = "birthdate is required")
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private LocalDate birthdate;
 
     @Pattern(regexp = "^(\\+57)?\\s?(\\d{1})?[\\s|-]?(\\d{3})?[\\s|-]?(\\d{3})[\\s|-]?(\\d{2})[\\s|-]?(\\d{2})$", message = "Number phone must be a valid number phone")
@@ -42,7 +46,5 @@ public class UserRequestDto {
 
     private Role role;
 
-    @Min(value = 1, message = "The minimum number must be 1")
-    @Min(value = 4, message = "The maximum number must be 4")
     private Long idRole;
 }

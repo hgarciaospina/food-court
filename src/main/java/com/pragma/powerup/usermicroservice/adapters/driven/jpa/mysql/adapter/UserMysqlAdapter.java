@@ -1,11 +1,9 @@
 package com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.adapter;
 
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.DniAlreadyExistsException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.InvalidAgeException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.MailAlreadyExistsException;
-import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.PhoneAlreadyExistsException;
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
+import com.pragma.powerup.usermicroservice.configuration.Constants;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.validations.UserValidation;
@@ -28,8 +26,18 @@ public class UserMysqlAdapter implements IUserPersistencePort {
         if (personRepository.findByPhone(user.getPhone()).isPresent())
             throw new PhoneAlreadyExistsException();
 
-        if(!UserValidation.validateAge(user.getBirthdate())){
-            throw new InvalidAgeException();
+        if(!UserValidation.dateValidFormat(user.getBirthdate())){
+            throw new InvalidDateFormatException();
+        }
+
+        if(!UserValidation.idRolValid(user.getRole().getId())){
+            throw new IdRolInvalidException();
+        }
+
+        if(user.getRole().getId().equals(Constants.OWNER_ROLE_ID)){
+            if(!UserValidation.validateAge(user.getBirthdate())){
+                throw new InvalidAgeException();
+            }
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
