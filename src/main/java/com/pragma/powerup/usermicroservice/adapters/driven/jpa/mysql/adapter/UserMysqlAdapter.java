@@ -18,6 +18,13 @@ public class UserMysqlAdapter implements IUserPersistencePort {
 
     @Override
     public void saveUser(User user) {
+        validations(user);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        personRepository.save(personEntityMapper.toEntity(user));
+    }
+
+    private void validations(User user) {
         if (personRepository.findByDniNumber(user.getDniNumber()).isPresent())
             throw new DniAlreadyExistsException();
 
@@ -41,8 +48,5 @@ public class UserMysqlAdapter implements IUserPersistencePort {
                 (!UserValidation.validateAge(user.getBirthdate()))) {
             throw new InvalidAgeException();
         }
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        personRepository.save(personEntityMapper.toEntity(user));
     }
 }
