@@ -15,6 +15,7 @@ public class UserMysqlAdapter implements IUserPersistencePort {
     private final IUserRepository personRepository;
     private final IUserEntityMapper personEntityMapper;
     private final PasswordEncoder passwordEncoder;
+
     @Override
     public void saveUser(User user) {
         if (personRepository.findByDniNumber(user.getDniNumber()).isPresent())
@@ -25,19 +26,17 @@ public class UserMysqlAdapter implements IUserPersistencePort {
 
         if (personRepository.findByPhone(user.getPhone()).isPresent())
             throw new PhoneAlreadyExistsException();
-
+/*
         if(!UserValidation.dateValidFormat(user.getBirthdate())){
             throw new InvalidDateFormatException();
         }
-
-        if(!UserValidation.idRolValid(user.getRole().getId())){
+*/
+        if (!UserValidation.idRolValid(user.getRole().getId()))
             throw new IdRolInvalidException();
-        }
 
-        if(user.getRole().getId().equals(Constants.OWNER_ROLE_ID)){
-            if(!UserValidation.validateAge(user.getBirthdate())){
-                throw new InvalidAgeException();
-            }
+        if (user.getRole().getId().equals(Constants.OWNER_ROLE_ID) &&
+                (!UserValidation.validateAge(user.getBirthdate()))) {
+            throw new InvalidAgeException();
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));

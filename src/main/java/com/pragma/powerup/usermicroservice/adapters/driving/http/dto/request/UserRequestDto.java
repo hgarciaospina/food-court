@@ -27,7 +27,6 @@ public class UserRequestDto {
     private Long dniNumber;
 
     @NotNull(message = "birthdate is required")
-    @NotEmpty(message = "birthdate is required")
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     private LocalDate birthdate;
 
