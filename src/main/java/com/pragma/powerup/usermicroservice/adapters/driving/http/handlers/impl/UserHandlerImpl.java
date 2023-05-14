@@ -14,16 +14,16 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class UserHandlerImpl implements IUserHandler {
-    private final IUserServicePort personServicePort;
-    private final IRoleRepository personRole;
-    private final IUserRequestMapper personRequestMapper;
+    private final IUserServicePort userServicePort;
+    private final IRoleRepository userRole;
+    private final IUserRequestMapper userRequestMapper;
     private final IRoleEntityMapper roleEntityMapper;
 
     @Override
     public void saveUser(UserRequestDto userRequestDto) {
-        RoleEntity roleEntity = personRole.findById(userRequestDto.getIdRole())
+        RoleEntity roleEntity = userRole.findById(userRequestDto.getIdRole())
         .orElseThrow(RoleNotFoundException::new);
         userRequestDto.setRole(roleEntityMapper.roleEntityToRole(roleEntity));
-        personServicePort.saveUser(personRequestMapper.toUser(userRequestDto));
+        userServicePort.saveUser(userRequestMapper.toUser(userRequestDto));
     }
 }
