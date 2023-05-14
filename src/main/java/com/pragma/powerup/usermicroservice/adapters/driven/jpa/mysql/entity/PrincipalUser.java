@@ -5,9 +5,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Getter
@@ -26,8 +27,12 @@ public class PrincipalUser implements UserDetails {
     }
 
     public static PrincipalUser build(UserEntity user, List<RoleEntity> roles) {
-        List<GrantedAuthority> authorities = roles.stream()
-                .map(rol -> new SimpleGrantedAuthority(rol.getName())).collect(Collectors.toList());
+        List<GrantedAuthority> list = new ArrayList<>();
+        for (RoleEntity rol : roles) {
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(rol.getName());
+            list.add(simpleGrantedAuthority);
+        }
+        List<GrantedAuthority> authorities = Collections.unmodifiableList(list);
         return new PrincipalUser(user.getName(),  user.getEmail(),
                 user.getPassword(), authorities);
 
@@ -45,10 +50,6 @@ public class PrincipalUser implements UserDetails {
     @Override
     public String getPassword() {
         return password;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     @Override
