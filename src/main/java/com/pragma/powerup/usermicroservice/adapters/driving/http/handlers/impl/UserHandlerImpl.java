@@ -5,6 +5,7 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRoleEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserHandler;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IUserRequestMapper;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
@@ -18,6 +19,11 @@ public class UserHandlerImpl implements IUserHandler {
     private final IRoleRepository userRole;
     private final IUserRequestMapper userRequestMapper;
     private final IRoleEntityMapper roleEntityMapper;
+
+    @Override
+    public UserResponseDto findUserById(Long id) {
+        return userServicePort.findUserById(id);
+    }
 
     @Override
     public void saveUser(UserRequestDto userRequestDto) {

@@ -13,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.Map;
@@ -26,19 +23,27 @@ import java.util.Map;
 @RequiredArgsConstructor
 @SecurityRequirement(name = "jwt")
 public class UserRestController {
-    private final IUserHandler personHandler;
+    private final IUserHandler userHandler;
 
     @Secured({"ADMIN", "OWNER"})
     @Operation(summary = "Add a new user",
             responses = {
-                @ApiResponse(responseCode = "201", description = "Person created",
+                @ApiResponse(responseCode = "201", description = "User created",
                         content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
-                @ApiResponse(responseCode = "409", description = "Person already exists",
+                @ApiResponse(responseCode = "409", description = "User already exists",
                         content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @PostMapping
-    public ResponseEntity<Map<String, String>> savePerson(@Valid @RequestBody UserRequestDto userRequestDto) {
-        personHandler.saveUser(userRequestDto);
+    public ResponseEntity<Map<String, String>> saveUser(@Valid @RequestBody UserRequestDto userRequestDto) {
+        userHandler.saveUser(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.PERSON_CREATED_MESSAGE));
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_CREATED_MESSAGE));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, String>> findUserById(@PathVariable("id")Long id) {
+        userHandler.findUserById(id);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.RESPONSE_MESSAGE_KEY));
+    }
+
 }
