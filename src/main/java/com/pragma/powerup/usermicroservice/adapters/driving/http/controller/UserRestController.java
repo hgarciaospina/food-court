@@ -3,6 +3,7 @@ package com.pragma.powerup.usermicroservice.adapters.driving.http.controller;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserHandler;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
+import com.pragma.powerup.usermicroservice.domain.model.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,11 +40,17 @@ public class UserRestController {
                 .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.USER_CREATED_MESSAGE));
     }
 
+    @Secured({"ADMIN", "OWNER"})
+    @Operation(summary = "Find an user",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "User found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
+                    @ApiResponse(responseCode = "404", description = "User not found",
+                            content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String, String>> findUserById(@PathVariable("id")Long id) {
-        userHandler.findUserById(id);
+    public ResponseEntity<User> findUserById(@PathVariable("id")Long id) {
+        var user = userHandler.findUserById(id);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(Collections.singletonMap(Constants.RESPONSE_MESSAGE_KEY, Constants.RESPONSE_MESSAGE_KEY));
+                .body(user);
     }
-
 }

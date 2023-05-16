@@ -29,6 +29,7 @@ public class Constants {
     public static final String ID_ROLE_INVALID_MESSAGE = "The idRole must be between 1 and 4";
     public static final String USER_ALREADY_EXISTS_MESSAGE = "A user already exists with the role provided";
     public static final String USER_NOT_FOUND_MESSAGE = "No user found with the role provided";
+    public static final String USER_FOUND_MESSAGE = "User found with the id provided";
     public static final String SWAGGER_TITLE_MESSAGE = "User API Pragma Power Up";
     public static final String SWAGGER_DESCRIPTION_MESSAGE = "User microservice";
     public static final String SWAGGER_VERSION_MESSAGE = "1.0.0";

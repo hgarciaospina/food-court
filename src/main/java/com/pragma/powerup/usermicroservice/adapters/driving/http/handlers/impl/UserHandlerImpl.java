@@ -4,11 +4,11 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.Role
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.RoleNotFoundException;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IRoleEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IRoleRepository;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponseDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserHandler;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IUserRequestMapper;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
+import com.pragma.powerup.usermicroservice.domain.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +21,8 @@ public class UserHandlerImpl implements IUserHandler {
     private final IRoleEntityMapper roleEntityMapper;
 
     @Override
-    public UserResponseDto findUserById(Long id) {
-        return userServicePort.findUserById(id);
+    public User findUserById(Long id) {
+        return (userServicePort.findUserById(id));
     }
 
     @Override

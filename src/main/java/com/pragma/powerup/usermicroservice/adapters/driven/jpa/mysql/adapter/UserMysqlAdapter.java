@@ -19,9 +19,9 @@ public class UserMysqlAdapter implements IUserPersistencePort {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponseDto findUserById(Long id) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow( );
-        return userEntityMapper.toDto(userEntity);
+    public User findUserById(Long id) {
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+        return userEntityMapper.toUser(userEntity);
     }
 
     @Override
