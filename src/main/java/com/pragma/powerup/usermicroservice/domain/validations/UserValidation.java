@@ -1,4 +1,4 @@
-package com.pragma.powerup.usermicroservice.domain.exceptions;
+package com.pragma.powerup.usermicroservice.domain.validations;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
