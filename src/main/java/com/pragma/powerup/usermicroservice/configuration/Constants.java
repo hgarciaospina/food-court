@@ -2,6 +2,7 @@ package com.pragma.powerup.usermicroservice.configuration;
 
 public class Constants {
 
+    public static final String DATE_TIME_FORMAT ="yyyy-MM-dd";
     private Constants() {
         throw new IllegalStateException("Utility class");
     }

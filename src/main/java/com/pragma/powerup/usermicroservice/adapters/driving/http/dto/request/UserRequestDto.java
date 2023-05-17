@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -27,8 +25,9 @@ public class UserRequestDto {
     @NotNull(message = "Identification number is required")
     private Long dniNumber;
 
+    @NotBlank(message = "birthdate is required")
     @NotNull(message = "birthdate is required")
-    private LocalDate birthdate;
+    private String birthdate;
 
     @Pattern(regexp = "^(\\+57)?\\s?(\\d{1})?[\\s|-]?(\\d{3})?[\\s|-]?(\\d{3})[\\s|-]?(\\d{2})[\\s|-]?(\\d{2})$", message = "Number phone must be a valid number phone")
     @NotBlank(message = "Number phone is required")

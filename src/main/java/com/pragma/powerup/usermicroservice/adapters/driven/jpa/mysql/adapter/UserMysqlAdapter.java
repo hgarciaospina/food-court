@@ -7,7 +7,7 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositorie
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
-import com.pragma.powerup.usermicroservice.domain.validations.UserValidation;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.util.UserValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -32,7 +32,6 @@ public class UserMysqlAdapter implements IUserPersistencePort {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(userEntityMapper.toEntity(user));
     }
-
     private void validations(User user) {
         if (userRepository.findByDniNumber(user.getDniNumber()).isPresent())
             throw new DniAlreadyExistsException();

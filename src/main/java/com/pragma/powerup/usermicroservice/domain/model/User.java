@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,7 +14,7 @@ public class User {
     private String name;
     private String surname;
     private Long dniNumber;
-    private LocalDate birthdate;
+    private String birthdate;
     private String phone;
     private String email;
     private String password;

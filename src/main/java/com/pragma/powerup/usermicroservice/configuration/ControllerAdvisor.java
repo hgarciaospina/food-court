@@ -24,11 +24,10 @@ public class ControllerAdvisor {
     public ResponseEntity<Object> handleValidationException(MethodArgumentNotValidException ex) {
         List<String> errorMessages = new ArrayList<>();
         for (ObjectError error : ex.getBindingResult().getAllErrors()) {
-            if (error instanceof FieldError) {
-                FieldError fieldError = (FieldError) error;
-                errorMessages.add(fieldError.getField() + ": " + fieldError.getDefaultMessage());
-            } else {
+            if (!(error instanceof FieldError fieldError)) {
                 errorMessages.add(error.getDefaultMessage());
+            } else {
+                errorMessages.add(fieldError.getField() + ": " + fieldError.getDefaultMessage());
             }
         }
         return new ResponseEntity<>(errorMessages, HttpStatus.BAD_REQUEST);
@@ -115,7 +114,7 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_AGE_MESSAGE));
     }
     @ExceptionHandler(InvalidDateFormatException.class)
-    public ResponseEntity<Map<String, String>> handleRoleNotFoundException(
+    public ResponseEntity<Map<String, String>> handleinvalidDateFormatException(
             InvalidDateFormatException invalidDateFormatException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, INVALID_DATE_FORMAT_MESSAGE));
