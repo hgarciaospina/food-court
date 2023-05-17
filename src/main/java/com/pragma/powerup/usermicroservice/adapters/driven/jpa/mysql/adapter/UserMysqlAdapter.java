@@ -4,13 +4,14 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.User
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponseDto;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
 import com.pragma.powerup.usermicroservice.domain.exceptions.UserValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class UserMysqlAdapter implements IUserPersistencePort {
@@ -19,9 +20,9 @@ public class UserMysqlAdapter implements IUserPersistencePort {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponseDto findUserById(Long id) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        return userEntityMapper.toUserResponseDto(userEntity);
+    public boolean isOwnerUser(Long id) {
+        Optional<UserEntity> optionalUserEntity = userRepository.findById(id);
+        return optionalUserEntity.isPresent() && optionalUserEntity.get().getRole().getId().equals(Constants.OWNER_ROLE_ID);
     }
 
     @Override
