@@ -13,7 +13,7 @@ public class User {
     private Long id;
     private String name;
     private String surname;
-    private Long dniNumber;
+    private String dniNumber;
     private String birthdate;
     private String phone;
     private String email;

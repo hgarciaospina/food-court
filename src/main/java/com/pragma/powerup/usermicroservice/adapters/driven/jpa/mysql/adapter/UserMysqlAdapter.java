@@ -36,6 +36,10 @@ public class UserMysqlAdapter implements IUserPersistencePort {
         if (userRepository.findByDniNumber(user.getDniNumber()).isPresent())
             throw new DniAlreadyExistsException();
 
+        if(!UserValidation.validateDni(user.getDniNumber())){
+            throw new  DniIsNotNumberException();
+        }
+
         if (userRepository.findByEmail(user.getEmail()).isPresent())
             throw new MailAlreadyExistsException();
 

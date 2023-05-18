@@ -6,6 +6,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static com.pragma.powerup.usermicroservice.configuration.Constants.DNI_NUMBER_FORMAT;
+
 public class UserValidation {
     public static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern(
             Constants.DATE_TIME_FORMAT);
@@ -20,6 +25,15 @@ public class UserValidation {
             DATETIME_FORMATTER.parse(birthdate);
             return true;
         } catch (DateTimeParseException exception) {
+            return false;
+        }
+    }
+    public static boolean validateDni(String dni) {
+        try {
+            Pattern pattern = Pattern.compile((DNI_NUMBER_FORMAT));
+            Matcher matcher = pattern.matcher(dni);
+            return matcher.matches();
+        } catch (Exception e) {
             return false;
         }
     }

@@ -51,6 +51,13 @@ public class ControllerAdvisor {
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, DNI_ALREADY_EXISTS_MESSAGE));
     }
 
+    @ExceptionHandler(DniIsNotNumberException.class)
+    public ResponseEntity<Map<String, String>> handledDniIsNotNumberException(
+            DniIsNotNumberException dniIsNotNumberException) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, DNI_IS_NOT_NUMBER_MESSAGE));
+    }
+
     @ExceptionHandler(MailAlreadyExistsException.class)
     public ResponseEntity<Map<String, String>> handleMailAlreadyExistsException(
             MailAlreadyExistsException mailAlreadyExistsException) {
@@ -69,12 +76,6 @@ public class ControllerAdvisor {
             PhoneLengthInvalidException phoneLengthInvalidException) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PHONE_LENGTH_INVALID_MESSAGE));
-    }
-    @ExceptionHandler(PersonNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handlePersonNotFoundException(
-            PersonNotFoundException personNotFoundException) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(Collections.singletonMap(RESPONSE_ERROR_MESSAGE_KEY, PERSON_NOT_FOUND_MESSAGE));
     }
     @ExceptionHandler(RoleNotAllowedForCreationException.class)
     public ResponseEntity<Map<String, String>> handleRoleNotAllowedForCreationException(

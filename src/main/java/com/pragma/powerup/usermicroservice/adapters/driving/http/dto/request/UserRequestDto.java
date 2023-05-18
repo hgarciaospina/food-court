@@ -21,9 +21,11 @@ public class UserRequestDto {
     @Size(min = 2, max = 100, message="The surname must be between 2 and 100 characters")
     private String surname;
 
-    //@Pattern(regexp = "[0-9]", message = "The identification number must be numeric")
+    @Pattern(regexp = "[1-9]\\d{0,19}$", message = "The identification number must be numeric")
+    @NotBlank(message = "Identification number is required")
     @NotNull(message = "Identification number is required")
-    private Long dniNumber;
+    @NotNull(message = "Identification number is required")
+    private String dniNumber;
 
     @NotBlank(message = "birthdate is required")
     @NotNull(message = "birthdate is required")

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class UserResponseDto {
     private String name;
     private String surname;
-    private Long dniNumber;
+    private String dniNumber;
     private LocalDate birthdate;
     private String phone;
     private String email;
