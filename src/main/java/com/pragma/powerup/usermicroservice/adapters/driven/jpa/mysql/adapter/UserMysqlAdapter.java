@@ -4,6 +4,7 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.entity.User
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.exceptions.*;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositories.IUserRepository;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponseDto;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
@@ -26,11 +27,10 @@ public class UserMysqlAdapter implements IUserPersistencePort {
     }
 
     @Override
-    public void saveUser(User user) {
+    public UserResponseDto saveUser(User user) {
         validations(user);
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(userEntityMapper.toEntity(user));
+        return userEntityMapper.toUserResponseDto(userRepository.save(userEntityMapper.toEntity(user)));
     }
     private void validations(User user) {
         if (userRepository.findByDniNumber(user.getDniNumber()).isPresent())

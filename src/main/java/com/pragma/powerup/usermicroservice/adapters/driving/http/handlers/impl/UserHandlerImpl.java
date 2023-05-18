@@ -33,10 +33,10 @@ public class UserHandlerImpl implements IUserHandler {
     }
 
     @Override
-    public void saveUser(UserRequestDto userRequestDto) {
+    public UserResponseDto saveUser(UserRequestDto userRequestDto) {
         RoleEntity roleEntity = userRepositoryRole.findById(userRequestDto.getIdRole())
         .orElseThrow(RoleNotFoundException::new);
         userRequestDto.setRole(roleEntityMapper.roleEntityToRole(roleEntity));
-        userServicePort.saveUser(userRequestMapper.toUser(userRequestDto));
+        return userServicePort.saveUser(userRequestMapper.toUser(userRequestDto));
     }
 }

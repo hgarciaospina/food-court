@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDate;
-
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.*;
 
@@ -34,13 +32,13 @@ class UserUseCaseTest {
         passwordEncode = new BCryptPasswordEncoder();
         userUseCase = new UserUseCase(userPersistencePort);
 
-        Role role = new Role(2L, "ROLE_ADMINISTRATOR", "Administrator");
+        Role role = new Role(2L, "ROLE_OWNER", "Permissions for the owner");
         user = new User();
         user.setId(1L);
         user.setName("Pedro");
         user.setSurname("Jaramillo");
         user.setDniNumber(100002001L);
-        user.setBirthdate(LocalDate.parse("1970-12-24"));
+        user.setBirthdate("1970-12-24");
         user.setPhone("9 9887234");
         user.setEmail("pedro@gmail.com");
         user.setPassword(passwordEncode.encode("1234"));
