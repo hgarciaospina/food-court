@@ -37,6 +37,6 @@ public class UserHandlerImpl implements IUserHandler {
         RoleEntity roleEntity = userRepositoryRole.findById(userRequestDto.getIdRole())
         .orElseThrow(RoleNotFoundException::new);
         userRequestDto.setRole(roleEntityMapper.roleEntityToRole(roleEntity));
-        return userServicePort.saveUser(userRequestMapper.toUser(userRequestDto));
+        return userServicePort.saveUser(userRequestDto);
     }
 }
