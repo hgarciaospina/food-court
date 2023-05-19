@@ -22,7 +22,7 @@ class UserUseCaseTest {
     @InjectMocks
     private UserUseCase userUseCase;
     @Test
-        void saveUser() {
+        void testSaveUser() {
         Role role = Role.builder()
                 .id(1L)
                 .name("ADMINISTRATOR_ROLE")
