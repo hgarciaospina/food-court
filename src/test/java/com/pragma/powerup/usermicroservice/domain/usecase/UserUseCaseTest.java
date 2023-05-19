@@ -1,54 +1,59 @@
 package com.pragma.powerup.usermicroservice.domain.usecase;
 
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponseDto;
 import com.pragma.powerup.usermicroservice.domain.model.Role;
 import com.pragma.powerup.usermicroservice.domain.model.User;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.*;
-
+@ExtendWith(MockitoExtension.class)
 class UserUseCaseTest {
     @Mock
-    private IUserPersistencePort userPersistencePort;
-    private UserUseCase userUseCase;
-
-    @InjectMocks
-    private User user;
-
-    @Autowired
     PasswordEncoder passwordEncode;
-
-    @BeforeEach
-    void setUp() {
-        openMocks(this);
-        passwordEncode = new BCryptPasswordEncoder();
-        userUseCase = new UserUseCase(userPersistencePort);
-
-        Role role = new Role(2L, "ROLE_OWNER", "Permissions for the owner");
-        user = new User();
-        user.setId(1L);
-        user.setName("Pedro");
-        user.setSurname("Jaramillo");
-        user.setDniNumber(100002001L);
-        user.setBirthdate("1970-12-24");
-        user.setPhone("9 9887234");
-        user.setEmail("pedro@gmail.com");
-        user.setPassword(passwordEncode.encode("1234"));
-        user.setRole(role);
-    }
-
+    @Mock
+    private IUserPersistencePort userPersistencePort;
+    @InjectMocks
+    private UserUseCase userUseCase;
     @Test
-        @DisplayName("Expected value equal to actual value")
         void saveUser() {
-            userUseCase.saveUser(user);
-            verify(userPersistencePort).saveUser(user);
-        }
+        Role role = Role.builder()
+                .id(1L)
+                .name("ADMINISTRATOR_ROLE")
+                .description("Administrator role")
+                .build();
+
+         User user = User.builder()
+                 .id(1L)
+                 .name("Pedro")
+                 .surname("Picapiedra")
+                 .dniNumber("100010001")
+                 .birthdate("1980-10-23")
+                 .phone("+573234567890")
+                 .email("pedro@correo.com")
+                 .password(passwordEncode.encode("Leandro2009*"))
+                 .role(role)
+                 .build();
+
+        UserResponseDto userResponseDto = UserResponseDto.builder()
+                .name("Pedro")
+                .surname("Picapiedra")
+                .dniNumber("100010001")
+                .birthdate("1980-10-23")
+                .phone("+573234567890")
+                .email("pedro@correo.com")
+                .role(role)
+                .build();
+
+        when(userPersistencePort.saveUser(user)).thenReturn(userResponseDto);
+        UserResponseDto createdUser=userUseCase.saveUser(user);
+        assertEquals(userResponseDto.getBirthdate(), createdUser.getBirthdate());
+        verify(userPersistencePort,times(1)).saveUser(user);
+    }
 }
