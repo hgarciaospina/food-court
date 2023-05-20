@@ -15,7 +15,6 @@ import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service

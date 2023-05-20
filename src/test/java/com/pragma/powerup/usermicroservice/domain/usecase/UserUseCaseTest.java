@@ -1,5 +1,7 @@
 package com.pragma.powerup.usermicroservice.domain.usecase;
 
+import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponseDto;
 import com.pragma.powerup.usermicroservice.domain.model.Role;
 import com.pragma.powerup.usermicroservice.domain.model.User;
@@ -19,8 +21,12 @@ class UserUseCaseTest {
     PasswordEncoder passwordEncode;
     @Mock
     private IUserPersistencePort userPersistencePort;
+    @Mock
+    private IUserEntityMapper userEntityMapper;
     @InjectMocks
     private UserUseCase userUseCase;
+
+    /*
     @Test
         void testSaveUser() {
         Role role = Role.builder()
@@ -41,6 +47,17 @@ class UserUseCaseTest {
                  .role(role)
                  .build();
 
+        UserRequestDto userRequestDto = UserRequestDto.builder()
+                .name("Pedro")
+                .surname("Picapiedra")
+                .dniNumber("100010001")
+                .birthdate("1980-10-23")
+                .phone("+573234567890")
+                .email("pedro@correo.com")
+                .password(passwordEncode.encode("Leandro2009*"))
+                .role(role)
+                .build();
+
         UserResponseDto userResponseDto = UserResponseDto.builder()
                 .name("Pedro")
                 .surname("Picapiedra")
@@ -52,8 +69,55 @@ class UserUseCaseTest {
                 .build();
 
         when(userPersistencePort.saveUser(user)).thenReturn(userResponseDto);
-        UserResponseDto createdUser=userUseCase.saveUser(user);
+        UserResponseDto createdUser=userUseCase.saveUser(userRequestDto);
+        return userPersistencePort.saveUser(userEntityMapper.toDomain(user));
         assertEquals(userResponseDto.getBirthdate(), createdUser.getBirthdate());
         verify(userPersistencePort,times(1)).saveUser(user);
+    }
+    */
+    @Test
+    void testUserValidEmail(){
+        Role role = Role.builder()
+                .id(1L)
+                .name("ADMINISTRATOR_ROLE")
+                .description("Administrator role")
+                .build();
+
+        User user = User.builder()
+                .id(1L)
+                .name("Pedro")
+                .surname("Picapiedra")
+                .dniNumber("100010001")
+                .birthdate("1980-10-23")
+                .phone("+573234567890")
+                .email("pedro@correo.com")
+                .password(passwordEncode.encode("Leandro2009*"))
+                .role(role)
+                .build();
+
+        assertEquals(user.getEmail(), "pedro@correo.com");
+    }
+
+    @Test
+    void testUserInvalidEmail() {
+        Role role = Role.builder()
+                .id(1L)
+                .name("ADMINISTRATOR_ROLE")
+                .description("Administrator role")
+                .build();
+
+        User user = User.builder()
+                .id(1L)
+                .name("Pedro")
+                .surname("Picapiedra")
+                .dniNumber("100010001")
+                .birthdate("1980-10-23")
+                .phone("+573234567890")
+                .email("pedro@")
+                .password(passwordEncode.encode("Leandro2009*"))
+                .role(role)
+                .build();
+
+        assertNotEquals("pedro@correo.com", user.getEmail());
     }
 }

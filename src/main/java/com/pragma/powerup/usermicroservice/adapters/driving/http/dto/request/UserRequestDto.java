@@ -2,10 +2,9 @@ package com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request;
 
 import com.pragma.powerup.usermicroservice.domain.model.Role;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
