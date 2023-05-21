@@ -23,7 +23,6 @@ public class UserRequestDto {
     @Pattern(regexp = "[1-9]\\d{0,19}$", message = "The identification number must be numeric")
     @NotBlank(message = "Identification number is required")
     @NotNull(message = "Identification number is required")
-    @NotNull(message = "Identification number is required")
     private String dniNumber;
 
     @NotBlank(message = "birthdate is required")

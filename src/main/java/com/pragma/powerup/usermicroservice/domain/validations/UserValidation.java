@@ -1,5 +1,4 @@
 package com.pragma.powerup.usermicroservice.domain.validations;
-
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 
 import java.time.LocalDate;
@@ -40,5 +39,6 @@ public class UserValidation {
     public static boolean idRolValid(Long idRol) {
         return (idRol >=1 && idRol <=5);
     }
-    public static boolean lengthValidPhoneNumber(String phone) { return phone.length() <= 13; }
+    public static boolean lengthValidPhoneNumber(String phone) {
+        return ((phone.length() >=7) && (phone.length() <=13)); }
 }

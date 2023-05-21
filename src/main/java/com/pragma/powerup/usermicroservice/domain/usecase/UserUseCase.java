@@ -3,11 +3,11 @@ package com.pragma.powerup.usermicroservice.domain.usecase;
 import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.mappers.IUserEntityMapper;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponseDto;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.util.UserValidation;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import com.pragma.powerup.usermicroservice.domain.exceptions.*;
 import com.pragma.powerup.usermicroservice.domain.spi.IUserPersistencePort;
+import com.pragma.powerup.usermicroservice.domain.validations.UserValidation;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -22,28 +22,29 @@ public class UserUseCase implements IUserServicePort {
     }
 
     @Override
-    public UserResponseDto saveUser(UserRequestDto user) {
-        validations(user);
-        return userPersistencePort.saveUser(userEntityMapper.toDomain(user));
+    public UserResponseDto saveUser(UserRequestDto userRequestDto) {
+        validations(userRequestDto);
+        return userPersistencePort.saveUser(userEntityMapper.toDomain(userRequestDto));
     }
 
-    private void validations(UserRequestDto user) {
+    private void validations(UserRequestDto userRequestDto) {
 
-        if (!UserValidation.lengthValidPhoneNumber(user.getPhone()))
+        if (!UserValidation.lengthValidPhoneNumber(userRequestDto.getPhone()))
             throw new PhoneLengthInvalidException();
 
-        if(!UserValidation.dateValidFormat(user.getBirthdate())){
+        if(!UserValidation.dateValidFormat(userRequestDto.getBirthdate())){
             throw new InvalidDateFormatException();
         }
-        if (!UserValidation.idRolValid(user.getRole().getId()))
+
+        if (!UserValidation.idRolValid(userRequestDto.getRole().getId()))
             throw new IdRolInvalidException();
 
-        if (user.getRole().getId().equals(Constants.OWNER_ROLE_ID) &&
-                (!UserValidation.validateAge(user.getBirthdate()))) {
+        if (userRequestDto.getRole().getId().equals(Constants.OWNER_ROLE_ID) &&
+                (!UserValidation.validateAge(userRequestDto.getBirthdate()))) {
             throw new InvalidAgeException();
         }
 
-        if (!UserValidation.validateDni(user.getDniNumber())) {
+        if (!UserValidation.validateDni(userRequestDto.getDniNumber())) {
             throw new DniIsNotNumberException();
         }
     }
