@@ -9,7 +9,6 @@ import com.pragma.powerup.usermicroservice.adapters.driven.jpa.mysql.repositorie
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponseDto;
 import com.pragma.powerup.usermicroservice.adapters.driving.http.handlers.IUserHandler;
-import com.pragma.powerup.usermicroservice.adapters.driving.http.mapper.IUserRequestMapper;
 import com.pragma.powerup.usermicroservice.configuration.Constants;
 import com.pragma.powerup.usermicroservice.domain.api.IUserServicePort;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,6 @@ public class UserHandlerImpl implements IUserHandler {
     private final IUserServicePort userServicePort;
     private final IUserRepository userRepository;
     private final IRoleRepository userRepositoryRole;
-    private final IUserRequestMapper userRequestMapper;
     private final IRoleEntityMapper roleEntityMapper;
     @Override
     public boolean isOwnerUser(Long id) {
