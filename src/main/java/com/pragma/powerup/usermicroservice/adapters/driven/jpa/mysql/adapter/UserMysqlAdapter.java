@@ -26,12 +26,9 @@ public class UserMysqlAdapter implements IUserPersistencePort {
 
     @Override
     public UserResponseDto saveUser(User user) {
-
         validations(user);
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userEntityMapper.toUserResponseDto(userRepository.save(userEntityMapper.toEntity(user)));
-
     }
     private void validations(User user){
         if (userRepository.findByDniNumber(user.getDniNumber()).isPresent())
