@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserRestController {
     private final IUserHandler userHandler;
 
-    @Secured({"ADMIN", "OWNER"})
+    @Secured({"ADMINISTRATOR", "OWNER"})
     @Operation(summary = "Add a new user",
             responses = {
                 @ApiResponse(responseCode = "201", description = "User created",
@@ -36,7 +36,7 @@ public class UserRestController {
                 .status(HttpStatus.CREATED)
                 .body(userResponseDto);
     }
-    @Secured({"ADMIN", "OWNER"})
+    @Secured({"ADMINISTRATOR", "OWNER"})
     @Operation(summary = "Find a user and return true if  idRole = 2 ==> Owner",
             responses = {
                     @ApiResponse(responseCode = "200", description = "User found",
