@@ -34,7 +34,7 @@ To get a local copy up and running follow these steps.
 1. Clone the repository
 2. Change directory
    ```sh
-   cd power-up-arquetipo-v3
+   cd food-court
    ```
 3. Create a new database in MySQL called powerup
 4. Update the database connection settings
@@ -47,8 +47,8 @@ To get a local copy up and running follow these steps.
           password: <your-password>
    ```
 5. After the tables are created execute src/main/resources/data.sql content to populate the database
-6. Open Swagger UI and search the /auth/login endpoint and login with userDni: 123, password: 1234
-
+6. Open Swagger UI and search the /auth/login endpoint and login with email: pedro@gmail.com, password: Pedro1999*
+7. The user pedro@gmail has role = 2 that corresponds to owner, if you want him to be an administrator you must change by database in the user table to id_role = 2 for id_role = 1.
 <!-- USAGE -->
 ## Usage
 
