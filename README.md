@@ -24,6 +24,7 @@ To get a local copy up and running follow these steps.
 * JDK 17 [https://jdk.java.net/java-se-ri/17](https://jdk.java.net/java-se-ri/17)
 * Gradle [https://gradle.org/install/](https://gradle.org/install/)
 * MySQL [https://dev.mysql.com/downloads/installer/](https://dev.mysql.com/downloads/installer/)
+* DBeaver Community [https://dbeaver.io/download/](https://dbeaver.io/download/)
 
 ### Recommended Tools
 * IntelliJ Community [https://www.jetbrains.com/idea/download/](https://www.jetbrains.com/idea/download/)
@@ -47,8 +48,9 @@ To get a local copy up and running follow these steps.
           password: <your-password>
    ```
 5. After the tables are created execute src/main/resources/data.sql content to populate the database
-6. Open Swagger UI and search the /auth/login endpoint and login with email: pedro@gmail.com, password: Pedro1999*
-7. The user pedro@gmail has role = 2 that corresponds to owner, if you want him to be an administrator you must change by database in the user table to id_role = 2 for id_role = 1.
+6. To manage the database, DBeaver 23.0.3 was used.
+7. Open Swagger UI and search the /auth/login endpoint and login with email: pedro@gmail.com, password: Pedro1999*
+8. The user pedro@gmail has role = 2 that corresponds to owner, if you want him to be an administrator you must change by database in the user table to id_role = 2 for id_role = 1.
 <!-- USAGE -->
 ## Usage
 
