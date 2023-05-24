@@ -43,7 +43,7 @@ public class UserRestController {
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Map"))),
                     @ApiResponse(responseCode = "404", description = "User not found",
                             content = @Content(mediaType = "application/json", schema = @Schema(ref = "#/components/schemas/Error")))})
-    @GetMapping("/{id}")
+    @GetMapping("owner/{id}")
     public ResponseEntity <Boolean> isOwnerUser(@PathVariable("id")Long id) {
         var isOwner = userHandler.isOwnerUser(id);
         return ResponseEntity
