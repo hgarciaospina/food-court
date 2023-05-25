@@ -1,7 +1,9 @@
 package com.pragma.powerup.usermicroservice.domain.api;
 
-import com.pragma.powerup.usermicroservice.domain.model.User;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.request.UserRequestDto;
+import com.pragma.powerup.usermicroservice.adapters.driving.http.dto.response.UserResponseDto;
 
 public interface IUserServicePort {
-    void saveUser(User user);
+    boolean isOwnerUser(Long id);
+    UserResponseDto saveUser(UserRequestDto user);
 }

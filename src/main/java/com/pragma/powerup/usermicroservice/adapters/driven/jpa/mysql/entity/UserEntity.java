@@ -29,9 +29,8 @@ public class UserEntity {
     private String name;
     @Column(nullable = false, length = 100)
     private String surname;
-    @Column(name = "dni_number", unique = true, nullable = false)
-    private Long dniNumber;
-    //@JsonFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "dni_number", unique = true, nullable = false, length = 20)
+    private String dniNumber;
     private LocalDate birthdate;
     @Column(unique = true, length = 13)
     private String phone;

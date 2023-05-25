@@ -1,29 +1,19 @@
 use powerup
 
-INSERT INTO user (
-    name,
-    surname,
-    dni_number,
-    birthdate,
-    phone,
-    email,
-    password,
-    id_role
-  )
-VALUES
-  (
-    'Pedro',
-    'Picapiedra',
-     10001012390,
-    '2000-05-18',
-    '+573234567890',
-    ' ',
-    '1234',
-     1
-  );
+INSERT INTO powerup.`user` (
+            birthdate,
+            dni_number,
+            email,
+            name,
+            password,
+            phone,
+            surname,
+            id_role)
+VALUES('1999-01-29', '1002000002', 'pedro@gmail.com', 'Pedro', '$2a$10$YnKZP0bLf1A26OAFJpbNMuwDtJgIY3rewapA1yZmQ7k1ePGZkoZmy', '+573209876565', 'Picapiedra', 2);
 
+#El password sin codificar es: Pedro1999*
 
-INSERT INTO role (description, name) VALUES ('ROLE_ADMIN', 'ROLE_ADMIN');
-INSERT INTO role (description, name) VALUES ('ROLE_EMPLOYEE', 'ROLE_EMPLOYEE');
-INSERT INTO role (description, name) VALUES ('ROLE_CUSTOMER', 'ROLE_CUSTOMER');
-INSERT INTO role (description, name) VALUES ('ROLE_OWNER', 'ROLE_OWNER');
+INSERT INTO role (description, name) VALUES ('Administrator role', 'ROLE_ADMINISTRATOR');
+INSERT INTO role (description, name) VALUES ('Owner role', 'ROLE_EMPLOYEE');
+INSERT INTO role (description, name) VALUES ('Employee role', 'ROLE_EMPLOYEE');
+INSERT INTO role (description, name) VALUES ('Customer role', 'CUSTOMER_ROLE');

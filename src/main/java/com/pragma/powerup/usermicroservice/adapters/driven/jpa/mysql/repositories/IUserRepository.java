@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface IUserRepository extends JpaRepository<UserEntity, Long> {
-    Optional<UserEntity> findByDniNumber(Long dniNumber);
-    Boolean existsByDniNumber(Long dniNumber);
+    Optional<UserEntity> findByDniNumber(String dniNumber);
+    Optional<UserEntity> findByPhone(String phone);
     Optional<UserEntity> findByEmail(String email);
-    boolean existsByEmail(String mail);
 }

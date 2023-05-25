@@ -1,22 +1,18 @@
 package com.pragma.powerup.usermicroservice.domain.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.time.LocalDate;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
     private Long id;
     private String name;
     private String surname;
-    private Long dniNumber;
-    private LocalDate birthdate;
+    private String dniNumber;
+    private String birthdate;
     private String phone;
     private String email;
     private String password;
